@@ -1,4 +1,4 @@
-/*
+package main.java;/*
  * A class to represent an item in a game
  */
 

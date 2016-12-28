@@ -1,3 +1,5 @@
+package main.java;
+
 /*
 * A class to represent a map using a 2D array of ints
 */

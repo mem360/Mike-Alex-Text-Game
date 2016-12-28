@@ -1,3 +1,5 @@
+package main.java;
+
 /*
  * A class to represent an entity in a game
  */
