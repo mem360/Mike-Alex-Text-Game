@@ -9,6 +9,7 @@ public abstract class Entity {
     private String name;
     private int row;
     private int col;
+    private Direction direction;
     
     public Entity(int health, String name)
     {
@@ -46,8 +47,23 @@ public abstract class Entity {
         col = newCol;
     }
     
+    public void setDirection(Direction d)
+    {
+    	direction = d;
+    }
+    
     public int getCol()
     {
         return col;
+    }
+    
+    public Direction getDirection()
+    {
+    	return direction;
+    }
+    
+    public enum Direction
+    {
+    	NORTH, SOUTH, EAST, WEST;
     }
 }

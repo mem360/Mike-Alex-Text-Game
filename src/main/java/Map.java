@@ -1,4 +1,7 @@
 package main.java;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 
 /*
 * A class to represent a map using a 2D array of ints
@@ -24,6 +27,30 @@ public class Map {
         map = new int[rows][cols];
         ROWS = rows;
         COLS = cols;
+    }
+    
+    //creates a map from a specified file; assumes that the file is formatted with the first int as
+    //the rows, the second int as the cols, and the rest of the file as the actual map
+    public Map(File file) throws FileNotFoundException
+    {
+    	Scanner fileScanner = new Scanner(file);
+    	ROWS = fileScanner.nextInt();
+    	COLS = fileScanner.nextInt();
+    	map = new int[ROWS][COLS];
+    	int currentRow = 0;
+    	while(fileScanner.hasNextLine())
+    	{
+    	    Scanner lineScanner = new Scanner(fileScanner.nextLine());
+    	    int col = 0;
+    	    while(lineScanner.hasNextInt())
+    	    {
+    	    	map[currentRow][col] = lineScanner.nextInt();
+    	    	col++;
+    	    }
+    	    currentRow++;
+    	    lineScanner.close();
+    	}
+    	fileScanner.close();
     }
     
     //change one value in the map to newValue
@@ -54,6 +81,11 @@ public class Map {
     public boolean isInBounds(int row, int col)
     {
         return row >= 0 && row < ROWS && col >=0 && col < COLS;
+    }
+    
+    public int getValue(int row, int col)
+    {
+    	return map[row][col];
     }
     
     //returns the number of rows in the map
