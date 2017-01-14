@@ -8,6 +8,9 @@ public class Game {
     
     public static void main(String[] args) throws FileNotFoundException
     {
+        MainFrame mFrame = new MainFrame("Main Frame");
+        mFrame.showFrame();
+
         Scanner keyboard = new Scanner(System.in);
         System.out.print("Please enter your name: ");
         String name = keyboard.nextLine();
@@ -16,7 +19,8 @@ public class Game {
         File mapTest = new File("src/Resources/Maps/maptest.txt");
         Map map = new Map(mapTest);
         System.out.println(map);
-        
+
+
     }
     
 }
