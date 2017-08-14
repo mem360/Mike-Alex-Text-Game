@@ -5,12 +5,10 @@ package main.java;
 
 public abstract class Item extends GameElement {
     
-    private boolean canBeUsed;
     
-    public Item(String name, boolean canBeUsed)
+    public Item(String name)
     {
         super(name);
-        this.canBeUsed = canBeUsed;
     }
     
     public char mapToken()

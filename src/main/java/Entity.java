@@ -1,23 +1,30 @@
 package main.java;
 
+import java.util.ArrayList;
+
 /*
  * A class to represent an entity in a game
  */
-public abstract class Entity extends GameElement{
+public class Entity extends GameElement{
     
     private int health; //this is the entity's health
     private boolean isPlayer;
     private boolean isEnemy;
-    
+    private ArrayList<Item> inventory;
+    private Map currentMap;
     private Direction direction; //this is the direction that the entity is facing 
     
     /*
      * Initializes an entity with some health and a name
      */
-    public Entity(int health, String name)
+    public Entity(int health, String name, Map startingMap, boolean isPlayer, boolean isEnemy)
     {
         super(name);
         this.health = health;
+        this.isPlayer = isPlayer;
+        this.isEnemy = isEnemy;
+        inventory = new ArrayList<>();
+        currentMap = startingMap;
     }
     
     /*
@@ -57,24 +64,58 @@ public abstract class Entity extends GameElement{
     	return direction;
     }
     
-    /*
-     * constants to be used for directions in the map
-     */
-    public enum Direction
+    
+    public boolean move(Direction d)
     {
-    	NORTH, SOUTH, EAST, WEST;
+    	int oldRow = getRow();
+    	int oldCol = getCol();
+    	int newRow = oldRow;
+    	int newCol = oldCol;
+    	if(d.equals(Direction.NORTH) && currentMap.inBounds(newRow - 1, newCol))
+    		newRow--;
+    	else if(d.equals(Direction.SOUTH) && currentMap.inBounds(newRow + 1, newCol))
+    		newRow++;
+    	else if(d.equals(Direction.EAST) && currentMap.inBounds(newRow, newCol + 1))
+    		newCol++;
+    	else if(d.equals(Direction.WEST) && currentMap.inBounds(newRow, newCol - 1))
+    		newCol--;
+    	setRow(newRow);
+    	setCol(newCol);
+    	return newCol != oldCol || newRow != oldRow;
     }
     
-    public void move(Direction d)
+    public void pickUp(Item item)
     {
-    	
+    	inventory.add(item);
     }
     
-    /*
-     * this is used by the map and corresponds to the token that will be used to represent this entity on the map.
-     */
-    public char mapToken() 
+    public void drop(Item item)
     {
-    	return ENTITY;
+    	inventory.remove(item);
+    }
+    
+    public void damage(int damage)
+    {
+    	health -= damage;
+    }
+    
+    public boolean isDead()
+    {
+    	return health <= 0;
+    }
+    
+    public void heal(int restoredHealth)
+    {
+    	health += restoredHealth;
+    }
+    
+    public String listInventory()
+    {
+    	return inventory.toString();
+    }
+    
+    public void changeMap(Map newMap)
+    {
+    	currentMap = newMap;
     }
 }

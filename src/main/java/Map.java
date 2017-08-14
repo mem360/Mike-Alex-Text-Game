@@ -6,7 +6,7 @@ import java.util.Scanner;
 /*
 * A class to represent a map using a 2D array of ints
 */
-public class Map {
+public class Map implements MapTokens {
     
     private static final int DEFAULT_SIZE = 10;
     private final int ROWS;
@@ -80,7 +80,7 @@ public class Map {
     //returns true if the given row and col is in bounds, false otherwise
     public boolean inBounds(int row, int col)
     {
-        return row >= 0 && row < ROWS && col >=0 && col < COLS;
+        return row >= 0 && row < ROWS && col >=0 && col < COLS && getValue(row, col) != WALL;
     }
     
     public int getValue(int row, int col)

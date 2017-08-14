@@ -8,25 +8,12 @@ package main.java;
  */
 public interface MapTokens {
 	
-	/*
-	 * This token represents the player
-	 */
-	public final char PLAYER = 'P';
 	
 	/*
 	 * This token represents any generic item that any entity might be able to interact with, pick up, use, and/or throw away
 	 */
 	public final char ITEM = 'I';
 	
-	/*
-	 * This token represents any generic NPC that has some sort of autonomy
-	 */
-	public final char NPC = 'N';
-	
-	/*
-	 * This token represents a generic entity. This is only to be used for debugging purposes
-	 */
-	public final char ENTITY = 'E';
 	
 	/*
 	 * This token represents a wall or otherwise impassable barrier in the map
