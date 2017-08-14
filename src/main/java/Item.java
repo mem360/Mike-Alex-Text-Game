@@ -3,15 +3,18 @@ package main.java;
  * A class to represent an item in a game
  */
 
-public abstract class Item {
+public abstract class Item extends GameElement {
     
-    private String name;
     private boolean canBeUsed;
     
-    public Item(String name)
+    public Item(String name, boolean canBeUsed)
     {
-        this.name = name;
-        this.canBeUsed = false;
+        super(name);
+        this.canBeUsed = canBeUsed;
     }
     
+    public char mapToken()
+    {
+    	return ITEM;
+    }
 }

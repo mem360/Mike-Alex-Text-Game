@@ -11,20 +11,18 @@ public class Map {
     private static final int DEFAULT_SIZE = 10;
     private final int ROWS;
     private final int COLS;
-    private int[][] map;
+    private char[][] map;
     
     //constructs a square map of default size with each element set to 0;
     public Map()
     {
-        map = new int[DEFAULT_SIZE][DEFAULT_SIZE];
-        ROWS = DEFAULT_SIZE;
-        COLS = DEFAULT_SIZE;
+        this(DEFAULT_SIZE, DEFAULT_SIZE);
     }
     
     //constructs a map with 'rows' rows and 'cols' columns with each element set to 0
     public Map(int rows, int cols)
     {
-        map = new int[rows][cols];
+        map = new char[rows][cols];
         ROWS = rows;
         COLS = cols;
     }
@@ -36,15 +34,17 @@ public class Map {
     	Scanner fileScanner = new Scanner(file);
     	ROWS = fileScanner.nextInt();
     	COLS = fileScanner.nextInt();
-    	map = new int[ROWS][COLS];
+    	fileScanner.nextLine();
+    	map = new char[ROWS][COLS];
     	int currentRow = 0;
-    	while(fileScanner.hasNextLine())
+    	while(fileScanner.hasNextLine() && currentRow < ROWS)
     	{
-    	    Scanner lineScanner = new Scanner(fileScanner.nextLine());
+    		Scanner lineScanner = new Scanner(fileScanner.nextLine());
+    	    lineScanner.useDelimiter("");
     	    int col = 0;
-    	    while(lineScanner.hasNextInt())
+    	    while(lineScanner.hasNext() && col < COLS)
     	    {
-    	    	map[currentRow][col] = lineScanner.nextInt();
+    	    	map[currentRow][col] = lineScanner.next().charAt(0);
     	    	col++;
     	    }
     	    currentRow++;
@@ -54,7 +54,7 @@ public class Map {
     }
     
     //change one value in the map to newValue
-    public void changeValue(int row, int col, int newValue)
+    public void changeValue(int row, int col, char newValue)
     {
         map[row][col] = newValue;
     }
@@ -62,13 +62,13 @@ public class Map {
     //changes changeLength values in a line starting from [startRow][startCol] to newValue.
     //dRow and dCol represent how the rows and columns will change
     //dRow and dCol should be -1, 0, or 1.
-    public void changeLine(int startRow, int startCol, int changeLength, int newValue, int dRow, int dCol)
+    public void changeLine(int startRow, int startCol, int changeLength, char newValue, int dRow, int dCol)
     {
         int row = startRow;
         int col = startCol;
         for(int i = 0; i < changeLength; i++)
         {
-            if(isInBounds(row, col))
+            if(inBounds(row, col))
             {
                 changeValue(row, col, newValue);
             }
@@ -78,7 +78,7 @@ public class Map {
     }
     
     //returns true if the given row and col is in bounds, false otherwise
-    public boolean isInBounds(int row, int col)
+    public boolean inBounds(int row, int col)
     {
         return row >= 0 && row < ROWS && col >=0 && col < COLS;
     }
@@ -103,21 +103,22 @@ public class Map {
     //sets this map back to 0's
     public void reset()
     {
-       map = new int[ROWS][COLS];
+       map = new char[ROWS][COLS];
     }
     
     //returns a string representation of the map's current state
     public String toString()
     {
-        String mapString = "";
+        StringBuilder mapString = new StringBuilder();
         for(int row = 0; row < ROWS; row++)
         {
             for(int col = 0; col < COLS; col++)
             {
-                mapString += map[row][col] + " ";
+                mapString.append(map[row][col]);
+                mapString.append(' ');
             }
-            mapString += "\n";
+            mapString.append('\n');
         }
-        return mapString;
+        return mapString.toString();
     }
 }

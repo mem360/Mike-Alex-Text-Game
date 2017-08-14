@@ -3,67 +3,78 @@ package main.java;
 /*
  * A class to represent an entity in a game
  */
-public abstract class Entity {
+public abstract class Entity extends GameElement{
     
-    private int health;
-    private String name;
-    private int row;
-    private int col;
-    private Direction direction;
+    private int health; //this is the entity's health
+    private boolean isPlayer;
+    private boolean isEnemy;
     
+    private Direction direction; //this is the direction that the entity is facing 
+    
+    /*
+     * Initializes an entity with some health and a name
+     */
     public Entity(int health, String name)
     {
+        super(name);
         this.health = health;
-        this.name = name;
     }
     
+    /*
+     * returns this entity's health
+     */
     public int getHealth()
     {
         return health;
     }
     
-    public String getName()
-    {
-        return name;
-    }
-    
+    /*
+     * returns true if this entity is hostile, false otherwise
+     */
     public boolean isEnemy()
     {
-        return false;
+        return isEnemy;
     }
     
-    public int getRow()
+    public boolean isPlayer()
     {
-        return row;
+    	return isPlayer;
     }
     
-    public void setRow(int newRow)
-    {
-        row = newRow;
-    }
-    
-    public void setCol(int newCol)
-    {
-        col = newCol;
-    }
-    
+    /*
+     * changes the direction that this entity is facing in
+     */
     public void setDirection(Direction d)
     {
     	direction = d;
     }
     
-    public int getCol()
-    {
-        return col;
-    }
-    
+    /*
+     * returns the direction that this entity is facing in
+     */
     public Direction getDirection()
     {
     	return direction;
     }
     
+    /*
+     * constants to be used for directions in the map
+     */
     public enum Direction
     {
     	NORTH, SOUTH, EAST, WEST;
+    }
+    
+    public void move(Direction d)
+    {
+    	
+    }
+    
+    /*
+     * this is used by the map and corresponds to the token that will be used to represent this entity on the map.
+     */
+    public char mapToken() 
+    {
+    	return ENTITY;
     }
 }
